@@ -23,6 +23,9 @@ case $uselect in
     ;;
   3)
     clear
+    echo "[ Installing Webmin ]"
+    sleep 2
+    wget -qO - https://raw.githubusercontent.com/dudeinmo/ubuntu-scripts/master/webmin-install.sh | bash -s dudeinmo
     ;;
   4)
     clear
@@ -34,8 +37,7 @@ case $uselect in
     clear
     echo "[ Install HassOS ]"
     sleep 2
-    wget -qO - https://raw.githubusercontent.com/dudeinmo/ubuntu-scripts/master/hassos-proxmox.sh
- | bash -s local-lvm
+    wget -qO - https://raw.githubusercontent.com/dudeinmo/ubuntu-scripts/master/hassos-proxmox.sh | bash -s local-lvm
     ;;
     
   X)
