@@ -1,6 +1,8 @@
 #!/bin/bash
 clear
 
+sudo su
+
 sudo apt update
 sleep 3
 clear
