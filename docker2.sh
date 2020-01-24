@@ -4,6 +4,7 @@ clear
 sudo su
 
 sudo apt update
+sudo apt upgrade -y
 sleep 3
 clear
 
@@ -23,7 +24,7 @@ apt-cache policy docker-ce
 sleep 3
 clear
 
-sudo apt install docker-ce
+sudo apt install docker-ce -y
 
 sleep 3
 clear
