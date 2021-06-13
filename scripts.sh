@@ -9,7 +9,7 @@ echo "[ 5 ] Docker Prep"
 echo "[ 6 ] Install Docker"
 echo "[ 7 ] Install Portainer"
 echo "[ 8 ] Install Watchtower"
-echo "[ 9 ] HassOs on Proxmox
+echo "[ 9 ] HassOs on Proxmox"
 echo "[ X ] Exit"
 echo
 read -p 'Selection : ' uselect
