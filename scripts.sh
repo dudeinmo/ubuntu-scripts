@@ -5,7 +5,7 @@ echo "[ 1 ] Update APT-GET"
 echo "[ 2 ] Upgrade APT-GET"
 echo "[ 3 ] Install Webmin"
 echo "[ 4 ] Install Samba"
-echo "[ 5 ] Docker Prep"
+echo "[ 5 ] Install Qemu Agent (Proxmox)"
 echo "[ 6 ] Install Docker"
 echo "[ 7 ] Install Portainer"
 echo "[ 8 ] Install Watchtower"
@@ -39,18 +39,19 @@ case $uselect in
     ;;
   5)
     clear
-    ##########    DOCKER INSTALL  ###########
+	apt-get install qemu-guest-agent
+	systemctl start qemu-guest-agent
+	;;
+  6)
+    clear
+    ##########    Installing Required Utilities  ###########
 
-	clear
-	echo "**************************************************"
-	echo "**       Update & Upgrade Apt                  ***"
-	echo "**************************************************"
 	sleep 3	
-
+	
 	sudo apt-get install apt-transport-https ca-certificates curl wget software-properties-common -y
-	sudo apt-get update -y
-	sudo apt-get upgrade -y
-
+	
+	sleep 3
+	
 	clear
 	echo "**************************************************"
 	echo "** Install Docker Repository and Install Docker***"
@@ -79,25 +80,23 @@ case $uselect in
 		echo "**           Docker is NOT running             ***"
 		echo "**************************************************"
 	fi
+    sleep 2
     ;;
-  6)
+  7)
     clear
-	echo "**************************************************"
+    echo "**************************************************"
 	echo "** Install Portainer Container on Docker       ***"
 	echo "**************************************************"
 	sleep 3
 	
 	sudo docker volume create portainer_data
 	sudo docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+	sudo docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 	
 	_MyIP="$( hostname -i )"
 	echo "Open the following address in a browser to access Portainer"
 	echo "http://$_MyIP:9000"
-    sleep 2
-    ;;
-  7)
-    clear
-    echo "[ Not Available Yet ]"
     sleep 2
     ;;
   8)
@@ -119,3 +118,4 @@ case $uselect in
 esac
 sleep 2
 clear
+
