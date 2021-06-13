@@ -5,6 +5,10 @@ echo "[ 1 ] Update APT-GET"
 echo "[ 2 ] Upgrade APT-GET"
 echo "[ 3 ] Install Webmin"
 echo "[ 4 ] Install Samba"
+echo "[ 5 ] Docker Prep"
+echo "[ 6 ] Install Docker"
+echo "[ 7 ] Install Portainer"
+echo "[ 8 ] Install Watchtower"
 echo "[ 9 ] HassOs on Proxmox
 echo "[ X ] Exit"
 echo
@@ -32,6 +36,63 @@ case $uselect in
     echo "[ Installing Samba ]"
     sleep 2
     sudo apt-get install samba -y
+    ;;
+  5)
+    clear
+    ##########    DOCKER INSTALL  ###########
+
+	clear
+	echo "**************************************************"
+	echo "**       Update & Upgrade Apt                  ***"
+	echo "**************************************************"
+	sleep 3	
+
+	sudo apt-get install apt-transport-https ca-certificates curl wget software-properties-common -y
+	sudo apt-get update -y
+	sudo apt-get upgrade -y
+
+	clear
+	echo "**************************************************"
+	echo "** Install Docker Repository and Install Docker***"
+	echo "**************************************************"
+	sleep 3
+
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+	sudo apt-get update -y
+
+	apt-cache policy docker-ce
+
+	sudo apt-get install docker-ce -y
+
+	service=docker
+	if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+	then
+		echo "**************************************************"
+		echo "**             Docker is running               ***"
+		echo "**************************************************"
+		sleep 3
+	else
+		echo "**************************************************"
+		echo "**           Docker is NOT running             ***"
+		echo "**************************************************"	fi
+    ;;
+  6)
+    clear
+    echo "[ Not Available Yet ]"
+    sleep 2
+    ;;
+  7)
+    clear
+    echo "[ Not Available Yet ]"
+    sleep 2
+    ;;
+  8)
+    clear
+    echo "[ Not Available Yet ]"
+    sleep 2
     ;;
   9)
     clear
