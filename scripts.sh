@@ -82,7 +82,17 @@ case $uselect in
     ;;
   6)
     clear
-    echo "[ Not Available Yet ]"
+	echo "**************************************************"
+	echo "** Install Portainer Container on Docker       ***"
+	echo "**************************************************"
+	sleep 3
+	
+	sudo docker volume create portainer_data
+	sudo docker run -d -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+	
+	_MyIP="$( hostname -i )"
+	echo "Open the following address in a browser to access Portainer"
+	echo "http://$_MyIP:9000"
     sleep 2
     ;;
   7)
