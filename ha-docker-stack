@@ -1,0 +1,20 @@
+version: '2'
+services:   
+  hassio:
+    image: homeassistant/amd64-hassio-supervisor:latest
+    container_name: hassio_supervisor
+    privileged: true
+    restart: always
+
+    volumes:
+      - /media:/data
+      - /run/docker.sock:/run/docker.sock
+      - /var/run/dbus:/var/run/dbus
+      - /etc/localtime:/etc/localtime:ro
+    security_opt:
+      - apparmor:unconfined
+      - seccomp:unconfined
+    environment:
+      - SUPERVISOR_SHARE=/mnt/docker/hassio
+      - SUPERVISOR_NAME=hassio_supervisor
+      - HOMEASSISTANT_REPOSITORY=homeassistant/qemux86-64-homeassistant
