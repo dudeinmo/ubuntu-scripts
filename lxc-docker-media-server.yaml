@@ -1,5 +1,8 @@
 #privelaged Docker LXC container with cifs-utils installed
-#mkdir /docker
+# create the directories
+#
+# mkdir -p docker/{docker_configs/{prowlarr,radarr,sonarr,lidarr,readarr},docker_media/{movies,tvseries,music,books}}
+#
 #mkdir /docker/docker_configs
 #                /prowlarr
 #                /radarr
