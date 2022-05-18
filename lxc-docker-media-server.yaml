@@ -1,0 +1,93 @@
+#privelaged Docker LXC container with cifs-utils installed
+#mkdir /docker
+#mkdir /docker/docker_configs
+#                /prowlarr
+#                /radarr
+#                /sonarr
+#                /lidarr
+#                /readarr
+#mkdir /docker/docker_media
+#                /movies
+#                /tvseries
+#                /music
+#                /books
+##########
+#
+#   still need to setup a VPN and add depends-on to each of the services.
+#
+##########
+
+version: "2.1"
+services:
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      - /docker/docker_configs/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      - /docker/docker_configs/radarr:/config
+      - /docker/docker_media/movies:/movies #optional
+      #- /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      - /docker/docker_configs/sonarr:/config
+      - /docker/docker_media/tvseries:/tv #optional
+      #- /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      - /docker/docker_configs/lidarr:/config
+      - /docker/docker_media/music:/music #optional
+      #- /path/to/downloads:/downloads #optional
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Chicago
+    volumes:
+      - /docker/docker_configs/readarr:/config
+      - /docker/docker_media/books:/books #optional
+      #- /path/to/downloadclient-downloads:/downloads #optional
+    ports:
+      - 8787:8787
+    restart: unless-stopped
