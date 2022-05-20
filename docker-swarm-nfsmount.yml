@@ -1,0 +1,19 @@
+# install nfs-common on each manager and worker
+# mkdir for the share /nfs/docker from NFS server
+# mkdir for each service
+# chown -R /nfs nobody:nogroup
+# chmod 755 -R /nfs
+# 
+
+version: "3.0"
+services:
+  nodered:
+    container_name: nodered
+    image: nodered/node-red
+    volumes:
+      - $PWD/nfs/docker/nodered:/data
+    ports:
+      - 1880:1880
+    deploy:
+      mode: replicated
+      replicas: 1
